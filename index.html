@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Ergonomic Health Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <!-- Three.js from CDN -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+<div class="main-wrapper">
+    <!-- Left Side: Form -->
+    <div class="container form-container">
+        <h2>AI Era Health Assistant</h2>
+        <p>Click on the 3D model to pinpoint pain areas or fill the form below.</p>
+
+        <form action="/predict" method="post" id="healthForm">
+            <label>Age</label>
+            <input type="number" name="age" required value="25">
+
+            <label>Screen Hours (Daily)</label>
+            <input type="number" name="screen" required value="8">
+
+            <label>Sitting Hours (Daily)</label>
+            <input type="number" name="sitting" required value="6">
+
+            <div class="pain-inputs">
+                <div>
+                    <label>Neck Pain (0-10)</label>
+                    <input type="number" name="neck" id="neckInput" min="0" max="10" value="0" required>
+                </div>
+                <div>
+                    <label>Back Pain (0-10)</label>
+                    <input type="number" name="back" id="backInput" min="0" max="10" value="0" required>
+                </div>
+                <div>
+                    <label>Eye Strain (0-10)</label>
+                    <input type="number" name="eye" id="eyeInput" min="0" max="10" value="0" required>
+                </div>
+            </div>
+
+            <label>Breaks per day</label>
+            <input type="number" name="breaks" required value="2">
+
+            <button type="submit">Analyze Health Risk</button>
+        </form>
+    </div>
+
+    <!-- Right Side: 3D Model -->
+    <div id="anatomy-container"></div>
+</div>
+
+<script type="module" src="{{ url_for('static', filename='js/anatomy_viewer.js') }}"></script>
+
+</body>
+</html>

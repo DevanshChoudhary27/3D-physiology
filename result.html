@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Analysis Result</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Three JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Analysis Result</h2>
+
+<!-- Risk Result -->
+<h3 class="{{ cls }}">{{ msg }}</h3>
+
+<p>{{ advice }}</p>
+
+<!-- Exercises -->
+<h3>Recommended Exercises</h3>
+
+<ul>
+{% for e in exercises %}
+    <li>{{ e }}</li>
+{% endfor %}
+</ul>
+
+<!-- 3D Section -->
+
+<h3>3D PhysioGraph</h3>
+
+<div class="physio-box">
+
+    <img src="{{ url_for('static', filename='models/anatomy.png') }}" 
+         class="anatomy">
+
+    <!-- AI Based Highlight -->
+    {% if msg == 'HIGH RISK' %}
+        <div class="highlight neck"></div>
+        <div class="highlight back"></div>
+
+    {% elif msg == 'MEDIUM RISK' %}
+        <div class="highlight neck"></div>
+
+    {% endif %}
+
+</div>
+
+<p>
+Highlighted Region:
+{% if msg == 'HIGH RISK' %}
+Neck & Lower Back Stress Detected
+{% elif msg == 'MEDIUM RISK' %}
+Moderate Posture Strain
+{% else %}
+No Major Muscular Issue
+{% endif %}
+</p>
+
+
+
+
+
+</body>
+</html>
